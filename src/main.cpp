@@ -5,11 +5,13 @@
 #include "measurement_package.h"
 #include "ekfslam.h"
 #include "draw.h"
+#include "helper/matplotlibcpp.h"
 #include<iomanip>
 
 using namespace std;
 
 void check_arguments(int argc, char* argv[]) {
+  matplotlibcpp::backend("Agg");
   string usage_instructions = "Usage instruction: ";
   usage_instructions += argv[0];
   usage_instructions += " path/to/world.txt path/to/sensor.dat";
@@ -48,8 +50,6 @@ int main(int arc, char* argv[])
    measurements.initialize(in_sensor_name);
    cout << measurements.data.size() << endl;
 
-
-
    Draw draw;
 
    EKFSLam ekfslam;
@@ -64,8 +64,8 @@ int main(int arc, char* argv[])
       stringstream ss;
       ss << setfill('0') << setw(3) << i;
       draw.Save("../images/"+ss.str());
+     // draw.Show();
    }
-   draw.Show();
  
    return -1;
 }
